@@ -1,0 +1,38 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        body { background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        .login-box { width: 400px; padding: 40px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h3 class="text-center mb-4 text-primary">Quản Trị Viên</h3>
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label class="form-label">Tài khoản</label>
+                <input type="text" name="username" class="form-control" required/>
+            </div>
+             <div class="mb-3">
+                <label class="form-label">Mật khẩu</label>
+                <input type="password" name="password" class="form-control" required/>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
+            <div class="text-center mt-3">
+                <a href="/Home/Index">Về trang chủ</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

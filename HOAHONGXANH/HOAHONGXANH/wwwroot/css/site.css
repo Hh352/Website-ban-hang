@@ -1,0 +1,1655 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+html {
+  font-size: 14px;
+}
+
+/* ... existing code ... */
+
+/* =========================================
+   ZANEROBE MINIMALIST STYLE
+   ========================================= */
+
+body {
+  font-family: 'Jost', sans-serif;
+  /* Clean, modern font */
+  background-color: #fff;
+  color: #000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  /* Editorial look */
+}
+
+/* Minimalist Product Card */
+.product-card-minimal {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: center;
+  transition: opacity 0.3s;
+}
+
+.product-card-minimal .card-img-top {
+  border-radius: 0 !important;
+  /* Sharp corners */
+  /* Ensure image aspect ratio is consistent if needed, e.g. 3:4 */
+  aspect-ratio: 3/4;
+  object-fit: cover;
+}
+
+.product-card-minimal .card-body {
+  padding: 1rem 0;
+}
+
+.product-card-minimal .product-title {
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: #333;
+  text-transform: none;
+  /* Keep product names normal case for readability or uppercase if preferred */
+}
+
+.product-card-minimal .product-price {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* Minimalist Buttons */
+.btn {
+  border-radius: 0 !important;
+  /* Sharp buttons */
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  font-weight: 500;
+}
+
+.carousel-caption h1 {
+  font-weight: 300;
+  /* Thin, elegant */
+  font-size: 3.5rem;
+  letter-spacing: 2px;
+}
+
+/* Color Swatches */
+.color-swatch-label {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.color-swatch-label:hover {
+  transform: scale(1.1);
+}
+
+.btn-check:checked+.color-swatch-label {
+  border: 2px solid #000;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
+}
+
+/* Tooltip on Hover (Optional simple implementation) */
+.color-swatch-label:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* margin-bottom: 60px; REMOVED to fix whitespace below footer */
+}
+
+/* Mega Menu Styles */
+.mega-dropdown {
+  position: static !important;
+  /* Allow full width relative to container or body */
+}
+
+.mega-menu {
+  width: 80vw;
+  /* Wide menu */
+  max-width: 1200px;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  top: 100%;
+  margin-top: 10px;
+  display: none;
+  /* Hidden by default */
+}
+
+/* Animation for when Bootstrap adds the 'show' class */
+.mega-menu.show {
+  display: block;
+  animation: slideDown 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.mega-menu {
+  max-height: 80vh;
+  /* Prevent menu from being taller than screen */
+  overflow-y: auto;
+  /* Enable scrolling within the menu */
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Accordion Menu Styles */
+.menu-toggle {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.menu-toggle:hover {
+  color: #0d6efd;
+}
+
+.menu-toggle .bi-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+.menu-toggle[aria-expanded="true"] .bi-chevron-down {
+  transform: rotate(180deg);
+}
+
+.nested-menu-link {
+  font-size: 0.9rem;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.nested-menu-link:hover {
+  color: #0d6efd;
+  padding-left: 5px;
+}
+
+/* Link Hover Effects */
+.hover-link {
+  transition: all 0.2s ease;
+  padding-left: 0;
+}
+
+.hover-link:hover {
+  color: #0d6efd !important;
+  /* Bootstrap primary color */
+  padding-left: 5px;
+  /* Slide effect */
+}
+
+/* Card Image Overlay Text Shadow */
+.card-img-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+}
+
+/* Custom Search Input Placeholder color if needed */
+/* Custom Search Input Placeholder color if needed */
+.form-control::placeholder {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* =========================================
+   MONOCHROME THEME OVERRIDES (BLACK/WHITE/GRAY)
+   ========================================= */
+
+:root {
+  --bs-primary: #000000;
+  /* Black */
+  --bs-secondary: #6c757d;
+  /* Gray */
+  --bs-success: #212529;
+  /* Dark Gray */
+  --bs-info: #dee2e6;
+  /* Light Gray */
+  --bs-warning: #343a40;
+  /* Medium Gray */
+  --bs-danger: #000000;
+  /* Black for emphasis */
+  --bs-light: #f8f9fa;
+  --bs-dark: #000000;
+}
+
+/* Text Colors */
+.text-primary,
+.text-success,
+.text-info,
+.text-warning,
+.text-danger {
+  color: #000000 !important;
+}
+
+.text-warning {
+  color: #333 !important;
+}
+
+.text-muted {
+  color: #666 !important;
+}
+
+/* Background Colors */
+.bg-primary {
+  background-color: #000000 !important;
+}
+
+.bg-secondary {
+  background-color: #6c757d !important;
+}
+
+.bg-success {
+  background-color: #333333 !important;
+}
+
+.bg-info {
+  background-color: #e9ecef !important;
+}
+
+.bg-warning {
+  background-color: #ced4da !important;
+}
+
+.bg-danger {
+  background-color: #000000 !important;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #000000;
+  border-color: #000000;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+.btn-outline-primary {
+  color: #000000;
+  border-color: #000000;
+}
+
+.btn-outline-primary:hover {
+  background-color: #000000;
+  color: #fff;
+}
+
+.btn-warning,
+.btn-success,
+.btn-danger,
+.btn-info {
+  background-color: #fff;
+  border-color: #000000;
+  color: #000000;
+}
+
+.btn-warning:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover {
+  background-color: #000000;
+  color: #fff;
+  border-color: #000000;
+}
+
+/* Badges */
+.badge {
+  background-color: #000000 !important;
+  color: #fff !important;
+}
+
+.badge.bg-warning {
+  background-color: #eee !important;
+  color: #000000 !important;
+  border: 1px solid #000;
+}
+
+/* Links */
+a {
+  color: #000000;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #555;
+}
+
+/* Specific overrides for Site Elements */
+.logo-text {
+  color: #000000 !important;
+}
+
+.mega-menu {
+  border-top: 3px solid #000 !important;
+}
+
+.nav-link {
+  color: #000000 !important;
+}
+
+.nav-link:hover {
+  color: #555 !important;
+}
+
+/* Undo some specific colors if needed */
+.text-white {
+  color: #fff !important;
+}
+
+/* =========================================
+   NEW DARK FOOTER STYLES
+   ========================================= */
+.footer-dark {
+  background-color: #000;
+  color: #fff;
+  padding-top: 60px;
+  padding-bottom: 30px;
+  font-size: 0.9rem;
+}
+
+.footer-dark h5,
+.footer-dark h6 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.footer-dark p {
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.footer-dark ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-dark ul li {
+  margin-bottom: 10px;
+}
+
+.footer-dark a {
+  color: #999 !important;
+  /* Force gray initially */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-dark a:hover {
+  color: #fff !important;
+}
+
+.footer-btn {
+  background-color: #fff;
+  color: #000 !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.footer-btn:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.footer-social-icon {
+  width: 35px;
+  height: 35px;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff !important;
+  border-radius: 8px;
+  /* Slightly rounded squares */
+  margin-left: 10px;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.footer-social-icon:hover {
+  background-color: #fff;
+  color: #000 !important;
+}
+
+.footer-divider {
+  border-top: 1px solid #333;
+  margin: 40px 0;
+}
+
+.footer-bottom-text {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* =========================================
+   CUSTOM HERO CAROUSEL (NUMERIC TABS)
+   ========================================= */
+#heroCarousel {
+  position: relative;
+  height: 85vh;
+  /* Taller hero */
+  overflow: hidden;
+}
+
+.carousel-item {
+  height: 85vh;
+}
+
+.hero-overlay {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  /* Only cover left side */
+  height: 100%;
+}
+
+.hero-caption {
+  position: absolute;
+  top: 45%;
+  left: 10%;
+  transform: translateY(-50%);
+  text-align: left;
+  color: #fff;
+  max-width: 650px;
+  z-index: 10;
+}
+
+.hero-caption h1 {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  font-family: 'Jost', sans-serif;
+}
+
+.hero-caption p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+/* Custom Indicators (Tabs) */
+.custom-indicators {
+  position: absolute;
+  bottom: 40px;
+  left: 10%;
+  width: 80%;
+  /* Spans most of width */
+  display: flex;
+  justify-content: flex-start;
+  /* Align left */
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 15;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.custom-indicators li {
+  padding-top: 20px;
+  cursor: pointer;
+  text-align: left;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+  border-top: 4px solid transparent;
+  margin-top: -2px;
+  /* Pull up */
+  flex: 1;
+  max-width: 200px;
+}
+
+.custom-indicators li.active {
+  opacity: 1;
+  border-top-color: #fff;
+  color: #fff;
+}
+
+.custom-indicators .indicator-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-family: 'Jost', sans-serif;
+}
+
+.custom-indicators .indicator-title {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Button style from image */
+.btn-hero-light {
+  background-color: #fff;
+  color: #000;
+  border-radius: 50px;
+  /* Pill shape */
+  padding: 12px 35px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s;
+}
+
+.btn-hero-light:hover {
+  background-color: #f0f0f0;
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* =========================================
+   HERO ANIMATIONS (ZOOM EFFECTS)
+   ========================================= */
+
+/* KEYFRAME: Zoom In then Return (Pulse) */
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  /* Zoom in slightly */
+  100% {
+    transform: scale(1);
+  }
+
+  /* Return to normal */
+}
+
+/* Image Base Style */
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8);
+  transition: transform 0.6s ease-out, filter 0.3s ease;
+  /* Smooth transition */
+  transform-origin: center center;
+}
+
+/* Active Slide Animation */
+.carousel-item.active .hero-img {
+  animation: zoomInOut 6s ease-in-out forwards;
+}
+
+/* Hover Effect: Zoom In and Stay */
+.carousel-item:hover .hero-img {
+  transform: scale(1.08) !important;
+  /* Pause active animation */
+  filter: brightness(0.9);
+}
+
+/* =========================================
+   SEASONAL COLLECTIONS (YODY STYLE)
+   ========================================= */
+
+.seasonal-section {
+  margin-bottom: 60px;
+}
+
+/* Banner */
+.seasonal-banner {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.seasonal-banner img {
+  height: 350px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.seasonal-banner:hover img {
+  transform: scale(1.03);
+}
+
+.seasonal-banner .overlay {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+}
+
+.seasonal-banner h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.seasonal-banner .btn-season {
+  background-color: #fff;
+  color: #000;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.seasonal-banner .btn-season:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Horizontal Scroll Container */
+.product-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 20px;
+  /* Space for scrollbar */
+  padding-left: 5px;
+  padding-right: 5px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.product-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.product-scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.product-scroll-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.product-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* Ensure cards inside scroll container have fixed width */
+.product-scroll-container .col-md-3 {
+  flex: 0 0 auto;
+  width: 280px;
+  /* Fixed card width */
+}
+
+/* Color Swatches on Card */
+.color-swatch-sm {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+
+/* =========================================
+   ADMIN DASHBOARD STYLES
+   ========================================= */
+.avatar-initials {
+  font-size: 1rem;
+  color: #0d6efd;
+  background-color: #e9ecef;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.sidebar .nav-link {
+  font-size: 0.95rem;
+  color: #495057;
+  border-radius: 0.25rem;
+  margin: 0.2rem 1rem;
+}
+
+.sidebar .nav-link:hover {
+  color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+.sidebar .nav-link.active {
+  color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.1);
+  border-right: none;
+}
+
+.sidebar-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+/* Card Improvements */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/*.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}*/
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.table thead th {
+  font-weight: 600;
+  color: #6c757d;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  border-bottom-width: 1px;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+/* =========================================
+   SKILLSET DASHBOARD THEME
+   ========================================= */
+:root {
+  --ss-bg: #f5f6fa;
+  --ss-card-bg: #ffffff;
+  --ss-text-primary: #1a1a1a;
+  --ss-text-secondary: #8c8c8c;
+  --ss-accent-dark: #1f1f1f;
+  /* Black card */
+  --ss-border-radius: 20px;
+  --ss-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+body.admin-body {
+  background-color: var(--ss-bg);
+  color: var(--ss-text-primary);
+  font-family: 'DM Sans', 'Inter', sans-serif;
+  /* DM Sans is popular for this look */
+}
+
+/* Sidebar */
+.skillset-sidebar {
+  background-color: var(--ss-bg);
+  padding: 30px;
+}
+
+.skillset-sidebar .logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skillset-nav .nav-link {
+  color: #666;
+  font-weight: 500;
+  padding: 12px 15px;
+  border-radius: 12px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s;
+}
+
+.skillset-nav .nav-link:hover,
+.skillset-nav .nav-link.active {
+  color: #000;
+  background-color: transparent;
+  /* Text only or subtle bg */
+  font-weight: 700;
+}
+
+.skillset-nav .nav-link.active i {
+  color: #000;
+}
+
+/* Cards */
+.ss-card {
+  background: var(--ss-card-bg);
+  border-radius: var(--ss-border-radius);
+  border: none;
+  box-shadow: var(--ss-shadow);
+  padding: 25px;
+  height: 100%;
+  transition: transform 0.2s;
+}
+
+.ss-card.dark {
+  background: var(--ss-accent-dark);
+  color: #fff;
+}
+
+.ss-card.dark .text-muted {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.ss-card .card-title {
+  font-size: 0.9rem;
+  color: var(--ss-text-secondary);
+  margin-bottom: 15px;
+}
+
+.ss-card.dark .card-title {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ss-stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+/* Top Bar */
+.ss-header {
+  background: transparent;
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+
+.ss-search-input {
+  border-radius: 30px;
+  border: none;
+  background: #fff;
+  padding: 10px 20px;
+  box-shadow: var(--ss-shadow);
+  width: 300px;
+}
+
+/* Chart Bars (Simple CSS Bars) */
+.bar-chart-container {
+  display: flex;
+  align-items: stretch;
+  /* Stretch columns to full height */
+  justify-content: space-between;
+  height: 150px;
+  padding-top: 20px;
+}
+
+.bar-chart-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  /* Align content (bar + label) to bottom */
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  /* Explicitly take full height */
+}
+
+.bar {
+  width: 30px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  transition: height 0.5s ease;
+}
+
+.bar.active,
+.bar.dark {
+  background-color: #1f1f1f;
+}
+
+.bar-label {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+/* Custom Table */
+.ss-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  /* Space between rows */
+}
+
+.ss-table thead th {
+  font-size: 0.85rem;
+  color: #8c8c8c;
+  font-weight: 500;
+  padding: 0 20px 10px 20px;
+  border: none;
+}
+
+.ss-table tbody tr {
+  background: #fff;
+  box-shadow: var(--ss-shadow);
+  border-radius: 12px;
+}
+
+.ss-table tbody td {
+  padding: 20px;
+  vertical-align: middle;
+  border: none;
+}
+
+.ss-table tbody td:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.ss-table tbody td:last-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.ss-badge-status {
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.ss-badge-status.paid {
+  background-color: #e6f7e6;
+  /* Light green */
+  color: #28a745;
+}
+
+.ss-badge-status.pending {
+  background-color: #fff8e1;
+  color: #ffc107;
+}
+
+/* =========================================
+   PICKPLANT TABLE STYLE
+   ========================================= */
+.pp-table-container {
+  background: transparent;
+}
+
+.pp-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  /* Gap between rows */
+}
+
+.pp-table thead th {
+  font-size: 0.8rem;
+  color: #999;
+  font-weight: 500;
+  padding: 15px 20px;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pp-row {
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 12px;
+}
+
+.pp-row td {
+  padding: 15px 20px;
+  vertical-align: middle;
+  background-color: #fff;
+  /* Ensure bg is applied to cells */
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.pp-row td:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.pp-row td:last-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.pp-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Status Pills (PickPlant Style) */
+.pp-status {
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  min-width: 90px;
+  display: inline-block;
+}
+
+.pp-status.pending {
+  background-color: #ffeeb3;
+  color: #bfa002;
+}
+
+.pp-status.published,
+.pp-status.active,
+.pp-status.approved {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.pp-status.blocked,
+.pp-status.rejected,
+.pp-status.deleted {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+/* Action Button (Three dots) */
+.pp-action-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  background: #fff;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.pp-action-btn:hover {
+  border-color: #ccc;
+  color: #333;
+  background: #f8f9fa;
+}
+
+/* Checkbox Style */
+.pp-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pp-checkbox:checked {
+  background-color: #000;
+  border-color: #000;
+}
+
+/* Pagination (PickPlant Circle Style) */
+.pp-pagination .page-item {
+  margin: 0 5px;
+}
+
+.pp-pagination .page-link {
+  width: 35px;
+  height: 35px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.pp-pagination .page-item.active .page-link {
+  background-color: #d1e7dd;
+  /* Light green accent */
+  color: #0f5132;
+}
+
+.pp-pagination .page-link:hover {
+  background-color: #f0f0f0;
+}
+
+/* =========================================
+   LOGIN PAGE REDESIGN (SPLIT SCREEN)
+   ========================================= */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  background-color: #fff;
+  overflow: hidden;
+  /* Prevent scrolling if not needed */
+}
+
+/* Left Section: Form */
+.login-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 80px;
+  /* Generous padding */
+  background: #fff;
+  max-width: 50%;
+  /* Ensure it takes half on large screens */
+}
+
+.login-brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #000;
+  margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-header {
+  margin-bottom: 30px;
+}
+
+.login-header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+  font-family: 'Inter', sans-serif;
+  /* Use modern font */
+  text-transform: none;
+  /* Override uppercase if set globally */
+}
+
+.login-header p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.login-form .form-label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.login-form .form-control {
+  border-radius: 8px;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.login-form .form-control:focus {
+  border-color: #000;
+  /* Minimal focus */
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Yellow Login Button */
+.btn-login-yellow {
+  background-color: #ffc107;
+  /* Standard warning yellow */
+  color: #000;
+  font-weight: 600;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.btn-login-yellow:hover {
+  background-color: #ffca2c;
+  color: #000;
+}
+
+/* Right Section: Visual */
+.login-right {
+  flex: 1;
+  background-color: #f3f4f6;
+  /* Light gray bg like reference */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Maple Leaf Logo Centered */
+.login-logo-hero {
+  width: 250px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-left {
+    max-width: 100%;
+    padding: 40px 20px;
+  }
+
+  .login-right {
+    display: none;
+    /* Hide visual on mobile for cleaner look */
+  }
+}
+
+/* =========================================
+   DESKBOARD ADMIN THEME (Dark/Yellow/White)
+   ========================================= */
+:root {
+  --db-sidebar-bg: #1E1E2D;
+  /* Dark Blue-Black */
+  --db-bg: #F5F6FA;
+  /* Light Gray Background */
+  --db-card-bg: #FFFFFF;
+  /* White Cards */
+  --db-text-main: #FFFFFF;
+  --db-text-muted: #A6A6C0;
+  --db-accent: #FFC107;
+  /* Yellow */
+  --db-radius: 10px;
+}
+
+/* Sidebar Styling */
+.db-sidebar {
+  background-color: var(--db-sidebar-bg) !important;
+  color: var(--db-text-main);
+  padding: 30px 20px;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+.db-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.db-menu-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--db-text-muted);
+  font-weight: 600;
+  margin-bottom: 15px;
+  margin-top: 25px;
+  padding-left: 15px;
+  letter-spacing: 1px;
+}
+
+.db-nav-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  color: var(--db-text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  margin-bottom: 5px;
+}
+
+.db-nav-link i {
+  margin-right: 15px;
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.db-nav-link:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.db-nav-link.active {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--db-accent);
+}
+
+/* Card Styling */
+.db-card {
+  background-color: var(--db-card-bg);
+  border-radius: var(--db-radius);
+  padding: 25px;
+  border: none;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
+  height: 100%;
+  transition: transform 0.2s;
+}
+
+.db-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.db-card-title {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.db-stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* Icons for Stats */
+.db-stat-icon {
+  width: 45px;
+  height: 45px;
+  background: #f0f0f0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #1E1E2D;
+}
+
+.db-stat-icon.blue {
+  background: #E1F0FF;
+  color: #3699FF;
+}
+
+.db-stat-icon.green {
+  background: #C9F7F5;
+  color: #1BC5BD;
+}
+
+.db-stat-icon.purple {
+  background: #EEE5FF;
+  color: #8950FC;
+}
+
+.db-stat-icon.yellow {
+  background: #FFF4DE;
+  color: #FFA800;
+}
+
+/* Status Badges */
+.db-badge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.db-badge.paid {
+  background: #C9F7F5;
+  color: #1BC5BD;
+}
+
+.db-badge.pending {
+  background: #FFF4DE;
+  color: #FFA800;
+}
+
+.db-badge.overdue {
+  background: #FFE2E5;
+  color: #F64E60;
+}
+
+/* =========================================
+   LUXURY ORDER MANAGEMENT THEME
+   ========================================= */
+
+/* Luxury Stats Cards */
+.lux-stats-card {
+  border: none;
+  border-radius: 4px;
+  /* Slightly squarish as per design, or rounded if preferred */
+  padding: 20px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.lux-bg-black {
+  background-color: #000000;
+  color: #fff;
+}
+
+.lux-bg-gray {
+  background-color: #E9ECEF;
+  color: #333;
+}
+
+.lux-card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.lux-card-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Luxury Table Container */
+.lux-table-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.lux-table-header {
+  background: #fff;
+  padding: 20px 25px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.lux-search-input {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  min-width: 250px;
+}
+
+/* Luxury Table Styling */
+.lux-table thead th {
+  background-color: #F8F9FA;
+  border-bottom: none;
+  color: #6C757D;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  padding: 15px 20px;
+  letter-spacing: 0.5px;
+}
+
+.lux-table tbody td {
+  padding: 20px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.lux-table tbody tr:hover {
+  background-color: #FAFAFA;
+}
+
+/* Avatar Circle */
+.lux-avatar-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  color: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Badges (Pills) */
+.lux-badge {
+  padding: 6px 16px;
+  border-radius: 4px;
+  /* Pill shape but slightly squared as per ref */
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid transparent;
+}
+
+.lux-badge.cod {
+  background-color: #000;
+  color: #fff;
+}
+
+.lux-badge.banking {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Or different if needed */
+
+.lux-badge-status {
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  width: fit-content;
+}
+
+.lux-badge-status.confirmed {
+  background-color: #000;
+  color: #fff;
+}
+
+.lux-badge-status.pending {
+  background: #fff;
+  color: #333;
+  border: 1px solid #333;
+}
+
+.lux-badge-status.cancelled {
+  background: #000;
+  color: #fff;
+}
+
+.lux-action-btn {
+  color: #999;
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.lux-action-btn:hover {
+  color: #333;
+}

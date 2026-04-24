@@ -1,0 +1,63 @@
+
+    <!-- Success Toast Notification -->
+    <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+        <div id="add-to-cart-toast" class="toast hide bg-white shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" style="min-width: 400px;">
+            <div class="toast-header border-bottom-0">
+                <strong class="me-auto text-success"><i class="bi bi-check-circle-fill me-2"></i>Thêm vào giỏ hàng thành công</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <div class="d-flex align-items-center mb-3">
+                    <img id="toast-img" src="" class="rounded me-3" style="width: 60px; height: 80px; object-fit: cover;">
+                    <div>
+                        <h6 id="toast-name" class="fw-bold mb-1">Product Name</h6>
+                        <p class="mb-0 small text-muted"><span id="toast-color">Color</span> / <span id="toast-size">Size</span></p>
+                        <p id="toast-price" class="mb-0 fw-bold text-danger">Price</p>
+                    </div>
+                </div>
+                <a href="/Cart" class="btn btn-outline-dark w-100 rounded-pill text-uppercase small fw-bold">Xem Giỏ Hàng <i class="bi bi-arrow-right ms-1"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mini Cart JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Load Mini Cart initially
+            loadMiniCart();
+
+            // Hover effect for Cart
+            const cartWrapper = document.querySelector('.cart-wrapper');
+            const miniCartContainer = document.getElementById('mini-cart-container');
+            
+            if(cartWrapper && miniCartContainer) {
+                cartWrapper.addEventListener('mouseenter', function() {
+                    miniCartContainer.style.display = 'block';
+                });
+                cartWrapper.addEventListener('mouseleave', function() {
+                    miniCartContainer.style.display = 'none';
+                });
+            }
+        });
+
+        function loadMiniCart() {
+            fetch('/Cart/GetMiniCart')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('mini-cart-container').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading mini cart:', error));
+        }
+
+        function showAddToCartToast(item) {
+            document.getElementById('toast-name').innerText = item.name;
+            document.getElementById('toast-color').innerText = item.color;
+            document.getElementById('toast-size').innerText = item.size;
+            document.getElementById('toast-price').innerText = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price);
+            document.getElementById('toast-img').src = item.image; // Assume item.Image is URL
+            
+            var toastEl = document.getElementById('add-to-cart-toast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    </script>

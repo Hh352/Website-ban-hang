@@ -1,0 +1,47 @@
+@model HOAHONGXANH.Models.Employee
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Thêm Nhân Viên";
+}
+
+<div class="card shadow mb-4 mt-4" style="max-width: 800px; margin: auto;">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thêm Nhân Viên Mới</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="CreateEmployee" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Tên đăng nhập (*)</label>
+                    <input asp-for="Username" class="form-control" required />
+                </div>
+                 <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Mật khẩu (*)</label>
+                    <input asp-for="Password" type="password" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Họ và Tên (*)</label>
+                <input asp-for="FullName" class="form-control" required />
+            </div>
+
+             <div class="row">
+                 <div class="col-md-6 mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" />
+                </div>
+                 <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Chức vụ</label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="1">Nhân viên</option>
+                        <option value="0">Quản trị viên (Admin)</option>
+                    </select>
+                </div>
+            </div>
+
+            <a href="/Admin/EmployeeManagement" class="btn btn-secondary me-2">Quay lại</a>
+            <button type="submit" class="btn btn-success">Tạo Tài Khoản</button>
+        </form>
+    </div>
+</div>

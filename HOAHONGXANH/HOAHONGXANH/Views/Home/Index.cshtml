@@ -1,0 +1,249 @@
+﻿@model HOAHONGXANH.Models.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "Trang Chủ";
+}
+
+<!-- Hero Carousel -->
+<div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-inner">
+        <!-- Slide 01 -->
+        <div class="carousel-item active">
+            <div class="position-relative h-100">
+                <img src="@Url.Content("~/images/hero/hero_1.png")" class="d-block hero-img" alt="Limited Drops">
+                <div class="hero-overlay"></div>
+                <div class="hero-caption">
+                    <h1 class="display-1 fw-bold text-uppercase">LIMITED DROPS,<br>MAXIMUM IMPACT</h1>
+                    <p class="lead mb-4">We release exclusive, small-batch collections to keep your style fresh and unique—once it's gone, it's gone.</p>
+                    <a href="/Products/Index" class="btn-hero-light text-decoration-none">
+                        Shop now <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 02 -->
+        <div class="carousel-item">
+            <div class="position-relative h-100">
+                <img src="@Url.Content("~/images/hero/hero_2.png")" class="d-block hero-img" alt="Built for Streets">
+                <div class="hero-overlay"></div>
+                <div class="hero-caption">
+                    <h1 class="display-1 fw-bold text-uppercase">BUILT FOR<br>THE STREETS</h1>
+                    <p class="lead mb-4">Durable fabrics meets modern aesthetics. Designed for the urban explorer who demands both style and substance.</p>
+                    <a href="/Products/Index" class="btn-hero-light text-decoration-none">
+                        Explore Collection <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 03 -->
+        <div class="carousel-item">
+            <div class="position-relative h-100">
+                <img src="@Url.Content("~/images/hero/hero_3.jpg")" class="d-block hero-img" alt="Art Meets Attitude">
+                <div class="hero-overlay"></div>
+                <div class="hero-caption">
+                    <h1 class="display-1 fw-bold text-uppercase">ART MEETS<br>ATTITUDE</h1>
+                    <p class="lead mb-4">Express yourself with our graphic tees and hoodies, featuring artwork from underground artists worldwide.</p>
+                    <a href="/Products/Index" class="btn-hero-light text-decoration-none">
+                        View Designs <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 04 -->
+        <div class="carousel-item">
+            <div class="position-relative h-100">
+                <img src="@Url.Content("~/images/hero/hero_4.png")" class="d-block hero-img" alt="Future Ready">
+                <div class="hero-overlay"></div>
+                <div class="hero-caption">
+                    <h1 class="display-1 fw-bold text-uppercase">FUTURE-READY<br>FASHION</h1>
+                    <p class="lead mb-4">Sustainable materials and innovative cuts. Stepping into the future of fashion with a conscience.</p>
+                    <a href="/Products/Index" class="btn-hero-light text-decoration-none">
+                        See Sustainability <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Slide 05 -->
+        <div class="carousel-item">
+            <div class="position-relative h-100">
+                <img src="@Url.Content("~/images/hero/hero_5.png")" class="d-block hero-img" alt="Community Culture">
+                <div class="hero-overlay"></div>
+                <div class="hero-caption">
+                    <h1 class="display-1 fw-bold text-uppercase">COMMUNITY<br>DRIVEN CULTURE</h1>
+                    <p class="lead mb-4">More than a brand, we are a movement. Join the HOAHONGXANH family and define your own path.</p>
+                    <a href="/Products/Index" class="btn-hero-light text-decoration-none">
+                        Join Us <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Numbered Indicators -->
+    <ul class="custom-indicators d-none d-lg-flex">
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active">
+            <span class="indicator-number">01</span>
+            <span class="indicator-title">Limited Drops, Maximum Impact</span>
+        </li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="1">
+            <span class="indicator-number">02</span>
+            <span class="indicator-title">Built for the Streets</span>
+        </li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="2">
+            <span class="indicator-number">03</span>
+            <span class="indicator-title">Art Meets Attitude</span>
+        </li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="3">
+            <span class="indicator-number">04</span>
+            <span class="indicator-title">Future-Ready Fashion</span>
+        </li>
+        <li data-bs-target="#heroCarousel" data-bs-slide-to="4">
+            <span class="indicator-number">05</span>
+            <span class="indicator-title">Community-Driven Culture</span>
+        </li>
+    </ul>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var myCarousel = document.getElementById('heroCarousel');
+        var indicators = document.querySelectorAll('.custom-indicators li');
+        
+        myCarousel.addEventListener('slide.bs.carousel', function (e) {
+            var index = e.to;
+            // Remove active from all
+            indicators.forEach(function(el) {
+                el.classList.remove('active');
+            });
+            // Add active to current
+            if(indicators[index]) {
+                indicators[index].classList.add('active');
+            }
+        });
+    });
+</script>
+
+<!-- Slogans & Features -->
+<div class="container mb-5">
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <div class="p-4 border rounded shadow-sm h-100 bg-light">
+                <h3 class="fw-bold text-primary"><i class="bi bi-star-fill"></i> Chất Lượng Cao</h3>
+                <p class="text-muted mt-2">Sản phẩm được tuyển chọn kỹ lưỡng từ những thương hiệu hàng đầu.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 border rounded shadow-sm h-100 bg-light">
+                <h3 class="fw-bold text-success"><i class="bi bi-truck"></i> Giao Hàng Nhanh</h3>
+                <p class="text-muted mt-2">Vận chuyển toàn quốc, nhận hàng nhanh chóng trong 2-3 ngày.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 border rounded shadow-sm h-100 bg-light">
+                <h3 class="fw-bold text-danger"><i class="bi bi-headset"></i> Hỗ Trợ 24/7</h3>
+                <p class="text-muted mt-2">Đội ngũ chăm sóc khách hàng luôn sẵn sàng phục vụ bạn.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTIONS: 4 SEASONS COLLLECTIONS (YODY STYLE) -->
+@if (Model != null && Model.CategoryGroups.Any())
+{
+    var seasons = new[] {
+        new { Name = "BST XUÂN 2025", Banner = Url.Content("~/images/season/season_spring.jpg"), Subtitle = "Tươi mới & Năng động", OverlayColor = "rgba(0,0,0,0.3)" },
+        new { Name = "BST HÈ NĂNG ĐỘNG", Banner = Url.Content("~/images/season/season_summer.png"), Subtitle = "Thoải mái & Phong cách", OverlayColor = "rgba(0,0,0,0.2)" },
+        new { Name = "BST THU THANH LỊCH", Banner = Url.Content("~/images/season/season_autumn.jpg"), Subtitle = "Ấm áp & Tinh tế", OverlayColor = "rgba(0,0,0,0.4)" },
+        new { Name = "BST ĐÔNG ẤM ÁP", Banner = Url.Content("~/images/season/season_winter.png"), Subtitle = "Sang trọng & Cuốn hút", OverlayColor = "rgba(0,0,0,0.3)" }
+    };
+
+    int index = 0;
+    foreach (var group in Model.CategoryGroups.Take(4))
+    {
+        var season = seasons[index % seasons.Length];
+        
+        <div class="seasonal-section container">
+            <!-- Seasonal Banner -->
+            <div class="seasonal-banner">
+                <img src="@season.Banner" alt="@season.Name">
+                <div class="overlay" style="background: @season.OverlayColor; padding: 20px; border-radius: 10px;">
+                    <p class="text-uppercase letter-spacing-2 mb-2">@season.Subtitle</p>
+                    <h2 class="mb-4">@season.Name</h2>
+                    <a href="/Products/Index" class="btn-season">Khám Phá Ngay</a>
+                </div>
+            </div>
+
+            <!-- Horizontal Scroll Products -->
+            <h4 class="fw-bold mb-3 text-uppercase">Sản Phẩm Nổi Bật</h4>
+            <div class="product-scroll-container pb-3">
+                @foreach (var product in group.Products)
+                {
+                    <div class="col-md-3">
+                        <div class="card h-100 border-0 product-card-minimal">
+                            <div class="position-relative overflow-hidden">
+                                <a href="@Url.Action("Details", "Products", new { id = product.Id })">
+                                    @{
+                                        string imgSrc = Url.Content("~/images/model_z.png");
+                                        if (!string.IsNullOrEmpty(product.Image))
+                                        {
+                                            if (product.Image.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                imgSrc = product.Image;
+                                            }
+                                            else
+                                            {
+                                                imgSrc = Url.Content("~/images/" + product.Image);
+                                            }
+                                        }
+                                    }
+                                    <img src="@imgSrc" class="card-img-top rounded-0" alt="@product.Name" style="height: 350px; object-fit: cover;">
+                                </a>
+                                @if(index == 0) {
+                                    <span class="position-absolute top-0 start-0 bg-danger text-white px-2 py-1 m-2 small fw-bold text-uppercase">Hot</span>
+                                } else {
+                                    <span class="position-absolute top-0 start-0 bg-white text-dark px-2 py-1 m-2 small fw-bold text-uppercase">New</span>
+                                }
+                            </div>
+                            <div class="card-body text-center px-0 pt-3">
+                                <h5 class="card-title fs-6 text-uppercase fw-normal mb-1">
+                                    <a href="@Url.Action("Details", "Products", new { id = product.Id })" class="text-dark text-decoration-none">@product.Name</a>
+                                </h5>
+                                <p class="card-text fw-bold text-muted small">@product.Price.ToString("N0")₫</p>
+                                
+                                <!-- Color Swatches (Decorative) -->
+                                <!-- Color Display -->
+                                @if (!string.IsNullOrEmpty(product.Color))
+                                {
+                                    <div class="mt-2 text-muted small">
+                                        Màu: @product.Color
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        index++;
+    }
+}
+else
+{
+    <div class="alert alert-warning text-center">
+        Chưa có sản phẩm nào.
+    </div>
+}
+
+<style>
+    .hover-effect:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        transition: all 0.3s ease;
+    }
+    .hover-effect:hover .card-img-top {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+    }
+    .transition-transform {
+        transition: transform 0.3s ease;
+    }
+</style>

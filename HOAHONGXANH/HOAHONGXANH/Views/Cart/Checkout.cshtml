@@ -1,0 +1,193 @@
+@model dynamic
+@{
+    ViewData["Title"] = "Thanh Toán";
+    var cart = ViewBag.Cart as List<HOAHONGXANH.Models.CartItem> ?? new List<HOAHONGXANH.Models.CartItem>();
+    decimal subtotal = cart.Sum(x => x.Total);
+    decimal shippingFee = (subtotal >= 498000) ? 0 : 20000;
+    decimal grandTotal = subtotal + shippingFee;
+}
+
+<div class="container py-5 bg-light" style="min-height: 100vh;">
+    <div class="row g-4 justify-content-center">
+        <!-- Center Header for Yody style -->
+        <div class="col-12 text-center mb-3">
+            <h4 class="fw-bold">Xác nhận đặt hàng</h4>
+        </div>
+
+        <form asp-action="Checkout" method="post" id="checkoutForm" class="row g-4 w-100 p-0 m-0 justify-content-center" onsubmit="prepareAddress(event)">
+            
+            <!-- Left Column: Delivery Info -->
+            <div class="col-lg-7">
+                <div class="bg-white rounded shadow-sm p-4">
+                    <!-- Tabs -->
+                    <div class="d-flex border-bottom mb-4">
+                        <button type="button" class="btn btn-white border-bottom border-warning border-3 fw-bold rounded-0 px-4 py-2" style="color: #FCAF17;">
+                            Giao tận nơi
+                        </button>
+                    </div>
+
+                    <!-- Address Section -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="fw-bold mb-0">Địa chỉ giao hàng</h6>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Họ tên & Số điện thoại</label>
+                            <input type="text" id="contactInfo" class="form-control mb-2" placeholder="Ví dụ: Nguyễn Văn A, 0901234567" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                             <label class="form-label small text-muted">Địa chỉ chi tiết</label>
+                             <textarea id="addressDetails" class="form-control" rows="3" required placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện, Tỉnh/Thành phố..."></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                             <input type="text" class="form-control" placeholder="Yêu cầu khác (nếu có)" id="orderNote">
+                        </div>
+                        
+                        <!-- Hidden field sent to backend -->
+                        <input type="hidden" name="shippingAddress" id="finalShippingAddress">
+                    </div>
+
+                    <!-- Cart Details -->
+                    <div class="mt-5">
+                        <h6 class="fw-bold mb-3"><i class="bi bi-bag"></i> Chi tiết đơn hàng</h6>
+                        <div class="bg-light rounded p-3">
+                            @foreach (var item in cart)
+                            {
+                                <div class="d-flex mb-3">
+                                    <img src="@item.Image" class="rounded me-3" style="width: 60px; height: 80px; object-fit: cover;">
+                                    <div>
+                                        <p class="fw-bold mb-1 small">@item.ProductName</p>
+                                        <p class="text-muted small mb-1">@item.Color, @item.Quantity</p>
+                                        <p class="fw-bold mb-0 small">@item.Price.ToString("N0")đ</p>
+                                    </div>
+                                    <div class="ms-auto fw-bold">
+                                        @item.Total.ToString("N0")đ
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-5">
+                <div class="bg-white rounded shadow-sm p-4 sticky-top" style="top: 20px;">
+                    <!-- Payment Method Section -->
+                    <div class="mb-4">
+                        <input type="hidden" name="paymentMethod" id="selectedPaymentMethod" value="COD">
+                        <!-- Added data-bs-toggle and target, removed onclick -->
+                        <div class="border rounded p-3 d-flex justify-content-between align-items-center cursor-pointer" 
+                             data-bs-toggle="modal" data-bs-target="#paymentModal"
+                             style="cursor: pointer;">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-cash-stack fs-4 me-3 text-secondary"></i>
+                                <div>
+                                    <span class="d-block small text-muted">Phương thức thanh toán</span>
+                                    <span class="fw-bold" id="paymentMethodDisplay">(COD) Thanh toán khi nhận hàng</span>
+                                </div>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted"></i>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="mb-3">
+                         <h6 class="fw-bold mb-3">Chi tiết đơn hàng</h6>
+                         <div class="d-flex justify-content-between mb-2 small">
+                             <span class="text-muted">Tổng tiền</span>
+                             <span class="fw-bold">@subtotal.ToString("N0")đ</span>
+                         </div>
+                         <div class="d-flex justify-content-between mb-2 small">
+                             <span class="text-muted">Phí vận chuyển</span>
+                             <span class="fw-bold">@shippingFee.ToString("N0")đ</span>
+                         </div>
+                         <div class="border-top border-dashed my-3"></div>
+                         <div class="d-flex justify-content-between align-items-center">
+                             <span class="fw-bold">Thành tiền</span>
+                             <div>
+                                 <span class="d-block fw-bold text-primary fs-4 text-end" style="color: #4A4A4A;">@grandTotal.ToString("N0")đ</span>
+                                 <span class="d-block small text-muted text-end">Mua nhiều giảm nhiều</span>
+                             </div>
+                         </div>
+                    </div>
+                    
+                    <div class="alert alert-light border small text-muted">
+                        <i class="bi bi-truck me-1"></i> Đơn từ 498k được miễn phí vận chuyển nhé!
+                    </div>
+
+                    <button type="submit" class="btn btn-warning w-100 py-3 text-white fw-bold text-uppercase shadow-sm" style="background-color: #FCAF17;">
+                        Đặt hàng <i class="bi bi-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- End Right Column -->
+        </form>
+    </div>
+</div>
+
+<!-- Payment Method Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold">Chọn phương thức thanh toán</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-4">
+                <div class="d-flex flex-column gap-3">
+                    <!-- COD Option -->
+                    <label class="d-flex align-items-center p-3 border rounded cursor-pointer payment-option" onclick="selectPayment('COD')">
+                        <input type="radio" name="modalPayment" value="COD" class="form-check-input me-3" checked>
+                        <i class="bi bi-cash fs-4 me-3"></i>
+                        <span class="fw-bold">Thanh toán khi nhận hàng (COD)</span>
+                    </label>
+
+                    <!-- Banking Option -->
+                    <label class="d-flex align-items-center p-3 border rounded cursor-pointer payment-option" onclick="selectPayment('Banking')">
+                        <input type="radio" name="modalPayment" value="Banking" class="form-check-input me-3">
+                        <i class="bi bi-credit-card-2-front fs-4 me-3 text-primary"></i>
+                        <span class="fw-bold">Chuyển khoản / VNPAY / Momo</span>
+                    </label>
+                </div>
+                
+                <button type="button" class="btn btn-warning w-100 mt-4 text-white fw-bold" style="background-color: #FCAF17;" data-bs-dismiss="modal">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal logic same as before, script updated -->
+<script>
+    function prepareAddress(e) {
+        // e.preventDefault(); // Don't prevent default, just update hidden field
+        const contact = document.getElementById('contactInfo').value;
+        const address = document.getElementById('addressDetails').value;
+        const note = document.getElementById('orderNote').value;
+        
+        const final = `Người nhận: ${contact} | Địa chỉ: ${address} | Ghi chú: ${note}`;
+        document.getElementById('finalShippingAddress').value = final;
+        return true;
+    }
+
+    function openPaymentModal() {
+        var myModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+        myModal.show();
+    }
+
+    function selectPayment(method) {
+        document.getElementById('selectedPaymentMethod').value = method;
+        const display = document.getElementById('paymentMethodDisplay');
+        if (method === 'COD') {
+            display.innerText = '(COD) Thanh toán khi nhận hàng';
+        } else {
+            display.innerText = 'Chuyển khoản / VNPAY / Momo';
+        }
+        document.querySelectorAll('input[name="modalPayment"]').forEach(r => {
+             if(r.value === method) r.checked = true;
+        });
+    }
+</script>

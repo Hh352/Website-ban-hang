@@ -1,0 +1,43 @@
+@model List<HOAHONGXANH.Models.CartItem>
+
+<div class="mini-cart-content p-3 bg-white shadow rounded border" style="width: 350px;">
+    @if (Model != null && Model.Any())
+    {
+        <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+            <span class="fw-bold text-secondary small">Hiện có @Model.Count sản phẩm</span>
+            <a href="/Cart" class="text-primary text-decoration-none small fw-bold">Xem tất cả</a>
+        </div>
+        
+        <div class="mini-cart-items" style="max-height: 300px; overflow-y: auto;">
+            @foreach (var item in Model.Take(5)) // Show max 5 newest items
+            {
+                <div class="d-flex mb-3 position-relative">
+                    <img src="@item.Image" alt="@item.ProductName" class="rounded border me-3" style="width: 60px; height: 80px; object-fit: cover;">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1 fw-bold text-truncate" style="max-width: 180px;">@item.ProductName</h6>
+                        <div class="d-flex justify-content-between">
+                            <span class="small text-muted">@item.Color / @item.Size</span>
+                            <span class="small fw-bold text-danger">@item.Price.ToString("N0")đ</span>
+                        </div>
+                        <span class="small text-muted">x @item.Quantity</span>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="border-top pt-3 mt-2">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="fw-bold">Tổng tiền:</span>
+                <span class="fw-bold text-danger fs-5">@Model.Sum(i => i.Total).ToString("N0")đ</span>
+            </div>
+            <a href="/Cart" class="btn btn-dark w-100 py-2 text-uppercase fw-bold">Xem Giỏ Hàng</a>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-4">
+            <i class="bi bi-cart-x fs-1 text-muted mb-3 d-block"></i>
+            <span class="text-muted small">Giỏ hàng của bạn đang trống</span>
+        </div>
+    }
+</div>

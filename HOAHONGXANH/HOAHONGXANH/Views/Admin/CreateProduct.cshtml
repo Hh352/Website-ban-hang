@@ -1,0 +1,68 @@
+@model HOAHONGXANH.Models.Product
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Thêm Sản Phẩm Mới";
+}
+
+<div class="card shadow mb-4 mt-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thêm Sản Phẩm Mới</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="CreateProduct" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Tên sản phẩm (*)</label>
+                    <input asp-for="Name" class="form-control" required />
+                </div>
+                 <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Danh mục (*)</label>
+                     <select asp-for="CategoryId" class="form-select" required>
+                        <option value="">-- Chọn danh mục --</option>
+                        @if (ViewBag.Categories != null)
+                        {
+                            foreach (var cat in ViewBag.Categories)
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                 <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Giá bán (*)</label>
+                    <input asp-for="Price" type="number" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Tồn kho</label>
+                    <input asp-for="Stock" type="number" class="form-control" value="100" />
+                </div>
+                 <div class="col-md-4 mb-3">
+                    <label class="form-label">Link Ảnh (URL)</label>
+                    <input asp-for="Image" class="form-control" placeholder="/images/..." />
+                </div>
+            </div>
+
+             <div class="row">
+                 <div class="col-md-6 mb-3">
+                    <label class="form-label">Màu sắc</label>
+                    <input asp-for="Color" class="form-control" />
+                </div>
+                 <div class="col-md-6 mb-3">
+                    <label class="form-label">Kích cỡ</label>
+                    <input asp-for="Size" class="form-control" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Mô tả chi tiết</label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+            </div>
+
+            <a href="/Admin/ProductManagement" class="btn btn-secondary me-2">Quay lại</a>
+            <button type="submit" class="btn btn-success">Lưu Sản Phẩm</button>
+        </form>
+    </div>
+</div>

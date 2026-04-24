@@ -1,0 +1,216 @@
+@model HOAHONGXANH.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container py-5">
+    <div class="row gx-5">
+        <!-- Left Column: Single Main Image (No Thumbnails as requested) -->
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="position-relative">
+                <img src="@Model.Image" class="img-fluid w-100 rounded" alt="@Model.Name" style="object-fit: cover;">
+                 <!-- Optional: Zoom button placeholder if needed -->
+            </div>
+        </div>
+
+        <!-- Right Column: Product Info -->
+        <div class="col-md-6">
+            <h4 class="fw-bold fs-4 mb-2">@Model.Name</h4>
+            <div class="d-flex align-items-center mb-3">
+                <span class="text-secondary small me-3">Mã SP: @Model.Id</span>
+                <span class="text-warning small"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> (50 đánh giá)</span>
+            </div>
+            
+            <h3 class="fw-bold text-danger mb-4">@Model.Price.ToString("N0")đ</h3>
+
+            <form method="post" id="productForm">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="color" id="selectedColor" value="@Model.Color" />
+                <input type="hidden" name="size" id="selectedSize" value="@Model.Size" />
+                
+                <!-- Color Selection (Dynamic) -->
+                <div class="mb-4">
+                    <label class="fw-bold mb-2 d-block small text-uppercase">Màu sắc: <span class="fw-normal text-muted" id="colorDisplay">@Model.Color</span></label>
+                    <div class="d-flex gap-2">
+                        @{
+                            var colors = Model.Color?.Split(new[] { '/', ',' }, StringSplitOptions.RemoveEmptyEntries) ?? new[] { "Mặc định" };
+                            foreach (var colorName in colors)
+                            {
+                                string cssColor = "#cccccc"; 
+                                string tColor = colorName.Trim().ToLower();
+
+                                if (tColor.Contains("đen")) { cssColor = "#000000"; }
+                                else if (tColor.Contains("trắng")) { cssColor = "#ffffff"; }
+                                else if (tColor.Contains("đỏ") || tColor.Contains("đô")) { cssColor = "#dc3545"; }
+                                else if (tColor.Contains("xanh dương") || tColor.Contains("xanh biển")) { cssColor = "#0d6efd"; }
+                                else if (tColor.Contains("xanh lá") || tColor.Contains("rêu")) { cssColor = "#198754"; }
+                                else if (tColor.Contains("vàng")) { cssColor = "#ffc107"; } // Bootstrap warning yellow
+                                else if (tColor.Contains("cam")) { cssColor = "#fd7e14"; }
+                                else if (tColor.Contains("xám") || tColor.Contains("ghi")) { cssColor = "#6c757d"; }
+                                else if (tColor.Contains("hồng")) { cssColor = "#d63384"; }
+                                else if (tColor.Contains("nâu") || tColor.Contains("be")) { cssColor = "#8B4513"; }
+                                else if (tColor.Contains("tím")) { cssColor = "#6f42c1"; }
+                                
+                                <div class="rounded-circle cursor-pointer border shadow-sm position-relative d-flex align-items-center justify-content-center color-option" 
+                                     onclick="selectColor(this, '@colorName.Trim()')"
+                                     style="width: 32px; height: 32px; cursor: pointer;">
+                                    <div class="rounded-circle" style="width: 24px; height: 24px; background-color: @cssColor;"></div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- Size Selection -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                         <label class="fw-bold small text-uppercase">Kích thước: <span class="fw-normal text-muted" id="sizeDisplay">@Model.Size</span></label>
+                         <a href="#" class="text-primary text-decoration-none small"><i class="bi bi-ruler"></i> Hướng dẫn chọn size</a>
+                    </div>
+                    <div class="d-flex gap-2 flex-wrap">
+                        @foreach (var s in new[] { "S", "M", "L", "XL", "2XL" })
+                        {
+                            var isSelected = (Model.Size ?? "").Contains(s); 
+                            <button type="button" class="btn btn-outline-dark rounded cursor-pointer size-option @(isSelected ? "active" : "")" 
+                                    onclick="selectSize(this, '@s')"
+                                    style="min-width: 45px;">@s</button>
+                        }
+                    </div>
+                </div>
+
+                <!-- Quantity & Cart -->
+                <div class="mb-4">
+                     <div class="d-flex gap-3">
+                         <div class="input-group" style="width: 140px;">
+                             <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(-1)"><i class="bi bi-dash"></i></button>
+                             <input type="text" name="quantity" id="quantityInput" class="form-control text-center border-secondary fw-bold" value="1" readonly>
+                             <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(1)"><i class="bi bi-plus"></i></button>
+                         </div>
+                         <button type="button" onclick="addToCartAjax()" class="btn btn-warning text-white fw-bold py-2 text-uppercase shadow-sm border-0 flex-grow-1" style="background-color: #FCAF17;">
+                             <i class="bi bi-bag-plus me-2"></i> Thêm vào giỏ
+                         </button>
+                         <button type="submit" formaction="@Url.Action("BuyNow", "Cart")" class="btn btn-dark text-white fw-bold py-2 text-uppercase shadow-sm border-0 flex-grow-1">
+                             <i class="bi bi-lightning-fill me-2"></i> Mua Ngay
+                         </button>
+                     </div>
+                     <a href="/Cart" class="d-block text-center mt-2 text-decoration-none small text-muted">Xem giỏ hàng của bạn</a>
+                </div>
+            </form>
+
+            <script>
+                function addToCartAjax() {
+                    const form = document.getElementById('productForm');
+                    const formData = new FormData(form);
+                    
+                    fetch('/Cart/AddToCartJson', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showAddToCartToast(data.item);
+                            loadMiniCart(); // Reload mini cart
+                        } else {
+                            alert('Lỗi: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+
+                function selectColor(el, color) {
+                    document.getElementById('selectedColor').value = color;
+                    document.getElementById('colorDisplay').innerText = color;
+                    document.querySelectorAll('.color-option').forEach(e => e.classList.remove('border-primary', 'border-2'));
+                    el.classList.add('border-primary', 'border-2');
+                }
+
+                function selectSize(el, size) {
+                    document.getElementById('selectedSize').value = size;
+                    document.getElementById('sizeDisplay').innerText = size;
+                    document.querySelectorAll('.size-option').forEach(e => e.classList.remove('active', 'btn-dark', 'text-white'));
+                    document.querySelectorAll('.size-option').forEach(e => e.classList.add('btn-outline-dark'));
+                    
+                    el.classList.remove('btn-outline-dark');
+                    el.classList.add('active', 'btn-dark', 'text-white');
+                }
+
+                function updateQuantity(change) {
+                    var el = document.getElementById('quantityInput');
+                    var val = parseInt(el.value) + change;
+                    if(val < 1) val = 1;
+                    el.value = val;
+                }
+            </script>
+
+            <!-- Commitments / Policies Grid -->
+            <div class="row g-3 mb-5">
+                <div class="col-6">
+                    <div class="border rounded p-3 h-100 bg-light">
+                        <i class="bi bi-truck fs-4 text-warning mb-2 d-block"></i>
+                        <span class="fw-bold small d-block">Miễn phí vận chuyển</span>
+                        <span class="text-secondary small" style="font-size: 0.75rem;">Đơn hàng từ 498k</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="border rounded p-3 h-100 bg-light">
+                        <i class="bi bi-arrow-repeat fs-4 text-warning mb-2 d-block"></i>
+                        <span class="fw-bold small d-block">Đổi trả miễn phí</span>
+                        <span class="text-secondary small" style="font-size: 0.75rem;">Trong vòng 30 ngày</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="border rounded p-3 h-100 bg-light">
+                        <i class="bi bi-shield-check fs-4 text-warning mb-2 d-block"></i>
+                        <span class="fw-bold small d-block">Bảo mật thông tin</span>
+                        <span class="text-secondary small" style="font-size: 0.75rem;">An toàn tuyệt đối</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="border rounded p-3 h-100 bg-light">
+                        <i class="bi bi-headset fs-4 text-warning mb-2 d-block"></i>
+                        <span class="fw-bold small d-block">Hỗ trợ 24/7</span>
+                        <span class="text-secondary small" style="font-size: 0.75rem;">Tư vấn nhiệt tình</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Tabs / Accordion -->
+            <div class="accordion accordion-flush" id="productInfoAccordion">
+                <div class="accordion-item border-top">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold bg-transparent shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#detailsCollapse" aria-expanded="true">
+                            CHI TIẾT SẢN PHẨM
+                        </button>
+                    </h2>
+                    <div id="detailsCollapse" class="accordion-collapse collapse show" data-bs-parent="#productInfoAccordion">
+                        <div class="accordion-body text-secondary">
+                            <p>@Model.Description</p>
+                            <ul>
+                                <li>Chất liệu: Cao cấp, thoáng mát.</li>
+                                <li>Màu sắc: Bền màu, không phai.</li>
+                                <li>Xuất xứ: Sản xuất tại Việt Nam.</li>
+                                <li>Hướng dẫn bảo quản: Giặt máy lạnh, không dùng thuốc tẩy.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item border-top">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold bg-transparent shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse" aria-expanded="false">
+                            CÂU HỎI THƯỜNG GẶP
+                        </button>
+                    </h2>
+                    <div id="faqCollapse" class="accordion-collapse collapse" data-bs-parent="#productInfoAccordion">
+                        <div class="accordion-body text-secondary">
+                            <p class="small">Q: Sản phẩm có được đổi trả không?<br>A: Có, trong vòng 30 ngày nếu còn nguyên tem mác.</p>
+                            <p class="small">Q: Bao lâu thì nhận được hàng?<br>A: Từ 2-4 ngày làm việc tùy khu vực.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

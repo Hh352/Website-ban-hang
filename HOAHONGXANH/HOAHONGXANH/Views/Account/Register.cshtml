@@ -1,0 +1,72 @@
+@model HOAHONGXANH.Models.Customer
+@{
+    ViewData["Title"] = "Đăng Ký";
+}
+
+<div class="d-flex justify-content-center align-items-center py-5">
+    <div class="login-container shadow-lg" style="max-width: 900px; width: 100%; min-height: 600px;">
+        <!-- Left Side: Form -->
+        <div class="login-left p-5" style="overflow-y: auto; max-height: 80vh; justify-content: flex-start;">
+            <div class="login-brand mb-4">
+                <i class="bi bi-circle-fill"></i> HOAHONGXANH 
+            </div>
+
+            <div class="login-header mb-4">
+                <h1>Chào mừng</h1>
+                <p>Chào mừng! Vui lòng nhập thông tin để đăng ký.</p>
+            </div>
+
+             @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger mb-4">@ViewBag.Error</div>
+            }
+
+            <form asp-action="Register" method="post" class="login-form">
+                <div class="mb-3">
+                    <label class="form-label">Tên đăng nhập (*)</label>
+                    <input asp-for="Username" class="form-control" placeholder="Chọn tên đăng nhập" required />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Mật khẩu (*)</label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="••••••••" required />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Họ và Tên (*)</label>
+                    <input asp-for="FullName" class="form-control" placeholder="Nguyễn Văn A" required />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="name@example.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Số điện thoại</label>
+                    <input asp-for="Phone" class="form-control" placeholder="0901234567" />
+                </div>
+                 <div class="mb-4">
+                    <label class="form-label">Địa chỉ</label>
+                    <textarea asp-for="Address" class="form-control" rows="2" placeholder="Nhập địa chỉ của bạn"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-login-yellow w-100">Đăng Ký</button>
+            </form>
+
+            <div class="mt-4 text-center text-muted small">
+                Đã có tài khoản? <a href="/Account/Login" class="text-dark fw-bold text-decoration-none">Đăng nhập ngay</a>
+            </div>
+        </div>
+
+        <!-- Right Side: Visual -->
+        <div class="login-right d-none d-md-block" style="background-color: #f8f9fa; position: relative; overflow: hidden;">
+            <!-- Maple Leaf Logo Logo -->
+            <img src="~/images/maple-leaf.png" alt="Logo" class="login-logo-hero position-absolute top-50 start-50 translate-middle" style="max-width: 60%; opacity: 0.8;" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

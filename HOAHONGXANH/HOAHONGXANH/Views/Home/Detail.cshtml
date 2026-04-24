@@ -1,0 +1,91 @@
+@model HOAHONGXANH.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
+    <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+  </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="@Model.Image" class="img-fluid rounded shadow" alt="@Model.Name" style="width: 100%; max-height: 500px; object-fit: cover;">
+    </div>
+    <div class="col-md-6">
+        <h1 class="display-5 fw-bolder">@Model.Name</h1>
+        <div class="fs-4 mb-3">
+            <span class="text-danger fw-bold">@Model.Price.ToString("N0") đ</span>
+        </div>
+        <p class="lead">@Model.Description</p>
+        
+        <form asp-controller="Cart" asp-action="AddToCart" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            
+            <div class="mb-3">
+                <label class="fw-bold mb-2">Kích Cỡ:</label>
+                <div class="d-flex gap-2">
+                    @foreach (var s in new[] { "S", "M", "L", "XL", "XXL" })
+                    {
+                        <input type="radio" class="btn-check" name="size" id="size-@s" value="@s" @(Model.Size == s ? "checked" : "") autocomplete="off">
+                        <label class="btn btn-outline-dark rounded-0 px-3" for="size-@s">@s</label>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="fw-bold mb-2">Màu Sắc:</label>
+                <div class="d-flex gap-2">
+                    @{
+                        var colorMap = new Dictionary<string, string> {
+                            { "Trắng", "#ffffff" }, { "Đen", "#000000" }, { "Xám", "#808080" }, 
+                            { "Xanh", "#0d6efd" }, { "Đỏ", "#dc3545" }, { "Vàng", "#ffc107" },
+                            { "Hồng", "#d63384" }, { "Be", "#f5f5dc" }, { "Nâu", "#795548" },
+                            { "Xanh Rêu", "#556b2f" }, { "Kem", "#fffdd0" }, { "Xanh Dương", "#0000ff" },
+                            { "Xanh Lá", "#008000" }, { "Tím", "#800080" }, { "Cam", "#ffa500" }
+                        };
+                        var defaultColors = new[] { "Trắng", "Đen", "Xám", "Xanh", "Đỏ" };
+                        // If model has a specific color that isn't in default list, add it or just use default list for general selection
+                        // For this demo, we'll iterate the map if the key exists in our "available" logic, or just show standard palette
+                        var availableColors = defaultColors; 
+                        if (!string.IsNullOrEmpty(Model.Color) && colorMap.ContainsKey(Model.Color) && !availableColors.Contains(Model.Color)) {
+                             availableColors = availableColors.Append(Model.Color).ToArray();
+                        }
+                    }
+
+                    @foreach (var c in availableColors)
+                    {
+                        var hex = colorMap.ContainsKey(c) ? colorMap[c] : "#ccc";
+                        <input type="radio" class="btn-check" name="color" id="color-@c" value="@c" @(Model.Color.Contains(c) || (string.IsNullOrEmpty(Model.Color) && c=="Trắng") ? "checked" : "") autocomplete="off">
+                        <label class="color-swatch-label" for="color-@c" style="background-color: @hex;" title="@c"></label>
+                    }
+                </div>
+                <!-- Fallback to show original DB color if needed -->
+                <small class="text-muted mt-2 d-block">Mặc định: @Model.Color</small>
+            </div>
+            
+             <div class="d-flex align-items-center mb-4">
+                <label class="fw-bold me-3">Số Lượng:</label>
+                <input class="form-control text-center me-3" id="inputQuantity" name="quantity" type="number" value="1" style="max-width: 3rem" />
+            </div>
+
+            <div class="d-flex mt-4">
+                 <button type="submit" class="btn btn-dark rounded-0 flex-shrink-0 me-2 btn-lg px-4">
+                    <i class="bi-cart-fill me-1"></i> THÊM VÀO GIỎ
+                </button>
+                <button type="button" class="btn btn-outline-dark rounded-0 flex-shrink-0 btn-lg px-4">
+                    MUA NGAY
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-5">
+    <h3>Sản phẩm liên quan</h3>
+    <hr />
+    <!-- Có thể thêm list sản phẩm cùng danh mục ở đây -->
+    <p class="text-muted">Tính năng đang cập nhật...</p>
+</div>

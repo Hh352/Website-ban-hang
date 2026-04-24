@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Thông tin Chuyển khoản";
+    decimal amount = ViewBag.Amount;
+    int orderId = ViewBag.OrderId;
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow border-info">
+            <div class="card-header bg-info text-white text-center">
+                <h4><i class="bi bi-bank"></i> Thông Tin Chuyển Khoản</h4>
+            </div>
+            <div class="card-body text-center">
+                
+                <h5 class="mt-3">Vui lòng chuyển khoản theo thông tin dưới đây:</h5>
+                <hr>
+                
+                <div class="my-4">
+                    <p class="mb-1 text-muted">Ngân hàng:</p>
+                    <h4 class="fw-bold">MB Bank (Quân Đội)</h4>
+                    
+                    <p class="mb-1 mt-3 text-muted">Số tài khoản:</p>
+                    <h3 class="fw-bold text-primary display-6">0333666999</h3>
+                    
+                    <p class="mb-1 mt-3 text-muted">Chủ tài khoản:</p>
+                    <h5 class="fw-bold">HOANG TRAN</h5>
+                    
+                    <p class="mb-1 mt-3 text-muted">Nội dung chuyển khoản:</p>
+                    <div class="alert alert-warning d-inline-block px-4 py-2 fw-bold">
+                        DH @orderId
+                    </div>
+                </div>
+                
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>Số tiền cần thanh toán:</span>
+                    <strong class="text-danger fs-4">@amount.ToString("N0") đ</strong>
+                </div>
+                
+                <div class="alert alert-success mt-4">
+                    <i class="bi bi-info-circle"></i> Vui lòng chụp lại màn hình hóa đơn và chờ Admin duyệt đơn hàng.
+                </div>
+
+                <div class="mt-4">
+                     <a href="/Cart/OrderSuccess?orderId=@orderId" class="btn btn-primary w-100">Đã Chuyển Khoản / Hoàn Tất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

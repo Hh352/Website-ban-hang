@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "Hồ sơ của tôi";
+}
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Thông tin cá nhân</h5>
+            </div>
+            <div class="card-body text-center">
+                 <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Avatar"/>
+                 <h4>@User.FindFirst("FullName")?.Value</h4>
+                 <p class="text-muted">@User.Identity?.Name</p>
+                 <hr/>
+                 <div class="text-start">
+                     <!-- In a real app we'd fetch this from DB -->
+                     <p><strong>Phone:</strong> (Chưa cập nhật)</p>
+                     <p><strong>Email:</strong> (Chưa cập nhật)</p>
+                     <p><strong>Địa chỉ:</strong> (Chưa cập nhật)</p>
+                 </div>
+                 <a href="#" class="btn btn-outline-primary w-100 disabled">Cập nhật thông tin</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Lịch sử đơn hàng</h5>
+            </div>
+             <div class="card-body">
+                 @if(ViewBag.Orders != null)
+                {
+                    var orders = (List<HOAHONGXANH.Models.Order>)ViewBag.Orders;
+                    if(orders.Count > 0)
+                    {
+                          <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Mã đơn</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var item in orders)
+                                    {
+                                        <tr>
+                                            <td>#@item.Id</td>
+                                            <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td>@item.TotalAmount.ToString("N0") đ</td>
+                                            <td><span class="badge bg-secondary">@item.Status</span></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-center text-muted mt-3">Bạn chưa có đơn hàng nào.</p>
+                        <div class="text-center">
+                            <a href="/" class="btn btn-primary">Mua sắm ngay</a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

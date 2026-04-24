@@ -1,0 +1,105 @@
+@model List<HOAHONGXANH.Models.Product>
+@{
+    ViewData["Title"] = ViewBag.CategoryTitle ?? "Danh Sách Sản Phẩm";
+}
+
+<div class="container my-5">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <h1 class="fw-bold text-uppercase fs-2">@ViewBag.CategoryTitle</h1>
+        <span class="text-muted">@Model.Count sản phẩm</span>
+    </div>
+
+    <!-- Toolbar (Filter/Sort - Visual Only for now) -->
+    <div class="d-flex justify-content-end mb-4">
+        <div class="dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle rounded-pill px-4" type="button" data-bs-toggle="dropdown">
+                Sắp xếp theo: Mặc định
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Mới nhất</a></li>
+                <li><a class="dropdown-item" href="#">Giá tăng dần</a></li>
+                <li><a class="dropdown-item" href="#">Giá giảm dần</a></li>
+            </ul>
+        </div>
+    </div>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="product-card h-100 position-relative">
+                        <!-- Image Link -->
+                        <a href="@Url.Action("Details", "Products", new { id = item.Id })" class="text-decoration-none">
+                            <div class="position-relative overflow-hidden rounded mb-3">
+                                <img src="@item.Image" class="w-100 object-fit-cover" alt="@item.Name" style="height: 350px; transition: transform 0.3s ease;">
+                            </div>
+                        </a>
+                        
+                        <!-- Product Info -->
+                        <div class="product-info">
+                            <!-- Color Swatches (Dynamic) -->
+                            <div class="d-flex gap-2 mb-2">
+                                @{
+                                    var colors = item.Color?.Split(new[] { '/', ',' }, StringSplitOptions.RemoveEmptyEntries) ?? new[] { "Mặc định" };
+                                    foreach (var colorName in colors)
+                                    {
+                                        string cssColor = "#cccccc"; // Default gray
+                                        string tColor = colorName.Trim().ToLower();
+
+                                        if (tColor.Contains("đen")) { cssColor = "#000000"; }
+                                        else if (tColor.Contains("trắng")) { cssColor = "#ffffff"; }
+                                        else if (tColor.Contains("đỏ")) { cssColor = "#dc3545"; }
+                                        else if (tColor.Contains("xanh dương") || tColor.Contains("xanh biển")) { cssColor = "#0d6efd"; }
+                                        else if (tColor.Contains("xanh lá") || tColor.Contains("rêu")) { cssColor = "#198754"; }
+                                        else if (tColor.Contains("vàng")) { cssColor = "#ffc107"; }
+                                        else if (tColor.Contains("cam")) { cssColor = "#fd7e14"; }
+                                        else if (tColor.Contains("xám") || tColor.Contains("ghi")) { cssColor = "#6c757d"; }
+                                        else if (tColor.Contains("hồng")) { cssColor = "#d63384"; }
+                                        else if (tColor.Contains("nâu") || tColor.Contains("be")) { cssColor = "#8B4513"; }
+                                        else if (tColor.Contains("tím")) { cssColor = "#6f42c1"; }
+                                        
+                                        <div class="rounded-circle border border-secondary" 
+                                             title="@colorName.Trim()"
+                                             style="width: 15px; height: 15px; background-color: @cssColor;">
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+                             <!-- Name -->
+                            <h6 class="card-title fw-normal mb-1">
+                                <a href="@Url.Action("Details", "Products", new { id = item.Id })" class="text-decoration-none text-dark hover-underline">
+                                    @item.Name
+                                </a>
+                            </h6>
+
+                            <!-- Price -->
+                            <p class="fw-bold text-dark fs-5 mb-0">@item.Price.ToString("N0")đ</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <i class="bi bi-search display-1 text-muted mb-3 d-block"></i>
+            <h4 class="text-muted">Không tìm thấy sản phẩm nào trong danh mục này.</h4>
+            <a href="/" class="btn btn-primary mt-3 rounded-pill px-4">Về Trang Chủ</a>
+        </div>
+    }
+</div>
+
+<style>
+    /* Hover Effects */
+    .product-card img:hover {
+        transform: scale(1.05);
+    }
+    .hover-underline:hover {
+        text-decoration: underline !important;
+    }
+</style>

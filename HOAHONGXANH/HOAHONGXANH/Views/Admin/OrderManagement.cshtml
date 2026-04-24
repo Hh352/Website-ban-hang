@@ -1,0 +1,121 @@
+@model List<HOAHONGXANH.Models.Order>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Quản Lý Đơn Hàng";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0 text-uppercase" style="letter-spacing: 1px;">ĐƠN HÀNG</h3>
+    
+    <div class="d-flex gap-2">
+        <button class="btn btn-white border rounded px-3 text-uppercase small fw-bold">Xuất CSV</button>
+        <button class="btn btn-white border rounded px-3 text-uppercase small fw-bold">In</button>
+        <button class="btn btn-white border rounded px-3 text-uppercase small fw-bold dropdown-toggle">Tuần này</button>
+    </div>
+</div>
+
+<!-- Stats Row -->
+<div class="row g-3 mb-5">
+    <div class="col-md-3">
+        <div class="lux-stats-card lux-bg-black text-white">
+            <div class="lux-card-title">TỔNG ĐƠN</div>
+            <div class="lux-card-value">@Model.Count</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="lux-stats-card lux-bg-gray">
+            <div class="lux-card-title text-muted">CHỜ XÁC NHẬN</div>
+            <div class="lux-card-value">@Model.Count(o => o.Status == "Chờ xác nhận")</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="lux-stats-card lux-bg-black text-white">
+            <div class="lux-card-title">ĐÃ XÁC NHẬN</div>
+            <div class="lux-card-value">@Model.Count(o => o.Status == "Đã xác nhận")</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="lux-stats-card lux-bg-black text-white">
+            <div class="lux-card-title">ĐÃ HỦY</div>
+            <div class="lux-card-value">@Model.Count(o => o.Status == "Đã hủy")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Main List -->
+<div class="lux-table-card">
+    <div class="lux-table-header d-flex justify-content-between align-items-center">
+        <h5 class="fw-bold m-0 text-uppercase" style="letter-spacing: 0.5px;">DANH SÁCH ĐƠN HÀNG</h5>
+        <input type="text" class="lux-search-input" placeholder="Tìm kiếm đơn hàng...">
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table lux-table mb-0">
+            <thead>
+                <tr>
+                    <th scope="col" class="ps-4">ID</th>
+                    <th scope="col">KHÁCH HÀNG</th>
+                    <th scope="col">NGÀY ĐẶT</th>
+                    <th scope="col">TỔNG TIỀN</th>
+                    <th scope="col">THANH TOÁN</th>
+                    <th scope="col">TRẠNG THÁI</th>
+                    <th scope="col" class="text-end pe-4">HÀNH ĐỘNG</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td class="ps-4 fw-bold">#@order.Id</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="lux-avatar-circle me-3">
+                                    @order.CustomerName.Substring(0, 1).ToUpper()
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-uppercase">@order.CustomerName</div>
+                                    <div class="text-muted small">Người nhận: @order.CustomerName | ĐC: @(string.IsNullOrEmpty(order.ShippingAddress) ? "N/A" : (order.ShippingAddress.Length > 20 ? order.ShippingAddress.Substring(0, 20) + "..." : order.ShippingAddress))</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td class="fw-bold">@order.TotalAmount.ToString("N0")đ</td>
+                        <td>
+                            @if(order.PaymentMethod == "Banking") {
+                                <span class="lux-badge banking">Banking</span>
+                            } else {
+                                <span class="lux-badge cod">COD</span>
+                            }
+                        </td>
+                        <td>
+                            @if (order.Status == "Chờ xác nhận")
+                            {
+                                <span class="lux-badge-status pending"><i class="bi bi-clock me-1"></i> Chờ xác nhận</span>
+                            }
+                            else if (order.Status == "Đã xác nhận")
+                            {
+                                <span class="lux-badge-status confirmed"><i class="bi bi-check-lg me-1"></i> Đã xác nhận</span>
+                            }
+                             else
+                            {
+                                <span class="lux-badge-status cancelled"><i class="bi bi-x-lg me-1"></i> Đã hủy</span>
+                            }
+                        </td>
+                        <td class="text-end pe-4">
+                            <div class="dropdown">
+                                <button class="btn btn-link lux-action-btn p-0" type="button" data-bs-toggle="dropdown">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                                    <li><a class="dropdown-item small py-2" href="/Admin/OrderDetail/@order.Id">Xem chi tiết</a></li>
+                                    <li><a class="dropdown-item small py-2" href="/Admin/ApproveOrder/@order.Id">Duyệt đơn</a></li>
+                                    <li><a class="dropdown-item small py-2 text-danger" href="/Admin/RejectOrder/@order.Id">Hủy đơn</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

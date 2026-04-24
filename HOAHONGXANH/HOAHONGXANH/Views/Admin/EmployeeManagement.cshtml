@@ -1,0 +1,52 @@
+@model List<HOAHONGXANH.Models.Employee>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Quản lý Nhân viên";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+    <h2>Danh sách Nhân Sự</h2>
+    <a href="/Admin/CreateEmployee" class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Thêm Nhân Viên
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Tên đăng nhập</th>
+                <th>Họ tên</th>
+                <th>Email</th>
+                <th>Chức vụ</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Username</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+                    <td>
+                        @if(item.Role == 0)
+                        {
+                            <span class="badge bg-danger">Quản trị viên</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-info text-dark">Nhân viên</span>
+                        }
+                    </td>
+                    <td>
+                        <a href="/Admin/EditEmployee/@item.Id" class="btn btn-warning btn-sm">Sửa</a>
+                        <a href="/Admin/DeleteEmployee/@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa nhân viên này?');">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,45 @@
+@model HOAHONGXANH.Models.Employee
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Cập nhật Nhân Viên";
+}
+
+<div class="card shadow mb-4 mt-4" style="max-width: 800px; margin: auto;">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Cập nhật: @Model.Username</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="EditEmployee" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Username" />
+            <input type="hidden" asp-for="Password" /> 
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Tên đăng nhập</label>
+                    <input type="text" class="form-control" value="@Model.Username" disabled />
+                </div>
+                 <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Chức vụ</label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="1">Nhân viên</option>
+                        <option value="0">Quản trị viên (Admin)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Họ và Tên (*)</label>
+                <input asp-for="FullName" class="form-control" required />
+            </div>
+
+             <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input asp-for="Email" type="email" class="form-control" />
+            </div>
+
+            <a href="/Admin/EmployeeManagement" class="btn btn-secondary me-2">Quay lại</a>
+            <button type="submit" class="btn btn-warning">Cập Nhật</button>
+        </form>
+    </div>
+</div>

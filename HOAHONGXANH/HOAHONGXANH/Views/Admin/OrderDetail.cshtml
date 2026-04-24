@@ -1,0 +1,37 @@
+@model List<HOAHONGXANH.Models.OrderDetail>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Chi tiết Đơn hàng";
+}
+
+<div class="mb-3 mt-3">
+    <a href="/Admin/OrderManagement" class="btn btn-secondary">&laquo; Quay lại</a>
+</div>
+
+<h2>Chi tiết Đơn Hàng #@ViewBag.OrderId</h2>
+
+<div class="table-responsive mt-3">
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Hình ảnh</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td><img src="@item.ProductImage" style="width: 50px; height: 50px; object-fit: cover;" /></td>
+                    <td>@item.Price.ToString("N0") đ</td>
+                    <td>@item.Quantity</td>
+                    <td>@((item.Price * item.Quantity).ToString("N0")) đ</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
